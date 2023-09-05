@@ -1,0 +1,50 @@
+.body {
+    background-color: white;
+    width: 100%;
+}
+.cardContain {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    
+}
+
+.tripCard {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    border: solid black 3px;
+    border-radius: 50px;
+    margin: 30px;
+
+    width: 300px;
+}
+
+img {
+    width: 100%;
+    height: 225px;
+    border-bottom-left-radius: 47px;
+    border-bottom-right-radius: 47px;
+    position: relative;
+    bottom: 0;
+}
+#titleCard {
+    padding: 10px 20%;
+}
+button {
+    border: 3px solid black;
+    border-radius: 15px;
+    margin: 20px;
+    background-color: paleturquoise;
+}
+
+button:hover {
+    background-color: rgb(80, 231, 231);
+}
+button:active {
+    background-color: paleturquoise;
+}
+p {
+    font-weight: bold;
+}
