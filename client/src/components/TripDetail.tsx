@@ -1,28 +1,52 @@
-import { useState, useEffect } from "react";
+import "./TripDetail.css"
+import { useState, useEffect, useContext } from "react";
+import { PageContext } from "../assets/contexts/pageContext";
 
 interface Props {
   id: number;
 }
 
+interface Trip {
+  id: string | number;
+  name: string;
+  destination: string;
+  startDate: string;
+  endDate: string;
+  image: string;
+}
+
 export default function TripDetail(props: Props) {
-  const [trip, setTrip] = useState([]);
+  const [trip, setTrip] = useState<Trip | null>(null);
 
   useEffect(() => {
-    const fetchGetTripById = async (id) => {
-      const data = await fetch("http://localhost:3000/api/trips/" + id);
-      const jsonData = await data.json();
-      setTrip(jsonData);
+    const fetchGetTripById = async (id: number | string) => {
+      const respons: Response = await fetch(
+        "http://localhost:3000/api/trips/" + id
+      );
+      const data: Trip = await respons.json();
+      setTrip(data);
     };
-    fetchGetTripById(props.id);
-  }, [trip]);
+    if (props.id) {
+      fetchGetTripById(props.id);
+    }
+  }, [props.id]);
+
+  const context = useContext(PageContext);
+  if (!context) return null;
+  const { setPage } = context;
+  console.log(props.id);
+
   return (
     <div>
-      <button>Home</button>
-      <h2>{trip.name}</h2>
-      <p>{trip.destination}</p>
-      <p>{trip.startDate}</p>
-      <p>{trip.endDate}</p>
-      <img src={trip.image} alt={trip.name + " Image"} /> <p></p>
+      <button onClick={() => setPage({ mode: "home" })}>Home</button>
+        <div>
+          <h1>{trip?.name}</h1>
+          <p>{trip?.destination}</p>
+          <p>{trip?.startDate}</p>
+          <p>{trip?.endDate}</p>
+          <img src={trip?.image} alt={trip?.name + " Image"} />
+        </div>
+  
     </div>
   );
 }

@@ -1,19 +1,23 @@
-import Home from "./components/Home";
+// import Home from "./components/Home";
+// import Trips from "./components/Trips";
 import "./App.css";
-import Trips from "./components/Trips";
-import { useState } from "react";
+import PageContextProvider from "./assets/contexts/pageContext";
+import Router from "./Router";
 
 function App() {
-  const [flagTrips, setFlagTrips] = useState(false);
-  const [flagHome, setFlagHome] = useState(true);
 
   return (
     <>
       <div>
-        {flagHome ? (
+        <PageContextProvider>
+          <Router />
+        </PageContextProvider>
+
+
+        {/* {flagHome ? (
           <Home flagTrips={setFlagTrips} flagHome={setFlagHome} />
         ) : null}
-        {flagTrips ? <Trips /> : null}
+        {flagTrips ? <Trips /> : null} */}
       </div>
     </>
   );

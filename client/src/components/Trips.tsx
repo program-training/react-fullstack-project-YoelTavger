@@ -1,9 +1,18 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useContext } from "react";
 import "./trips.css";
-import TripDetail from "./TripDetail";
+import { PageContext } from "../assets/contexts/pageContext";
+
+interface Trip {
+  id: string | number;
+  name: string;
+  destination: string;
+  startDate: string;
+  endDate: string;
+  image: string;
+}
 
 export default function Trips(): JSX.Element {
-  const [trips, setTrips] = useState([]);
+  const [trips, setTrips] = useState<Trip[]>([]);
 
   useEffect(() => {
     const fetchTrips = async () => {
@@ -14,24 +23,25 @@ export default function Trips(): JSX.Element {
     fetchTrips();
   }, [trips]);
 
-  const fetchDeleteTrip = async (id) => {
+  const fetchDeleteTrip = async (id: string | number) => {
     await fetch("http://localhost:3000/api/trips/" + id, {
       method: "DELETE",
       headers: {
-        "authorization": "test-token",
+        authorization: "test-token",
       },
     });
-    
   };
-  const flag = false
+  const context = useContext(PageContext);
+  if (!context) return null;
+  const { setPage } = context;
+
   return (
     <div className="body">
-      <button>Home</button>
+      <button onClick={() => setPage({ mode: "home" })}>Home</button>
       <button>Crete trip</button>
-      <div className="cardContain">
+      <div className="cardContain" >
         {trips.map((user) => (
-          <div className="tripCard" onClick={() => {flag = true}}>
-            
+          <div className="tripCard"  onClick={() => setPage({mode: "TripDetail" + user.id})}>
             <h2 id="titleCard">{user.name}</h2>
             <p>{user.destination}</p>
             <p>{user.startDate}</p>
@@ -43,7 +53,7 @@ export default function Trips(): JSX.Element {
             >
               delete
             </button>
-            <img src={user.image} alt={user.name+" Image"} />
+            <img src={user.image} alt={user.name + " Image"} />
           </div>
         ))}
       </div>
