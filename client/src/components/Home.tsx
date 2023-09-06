@@ -11,7 +11,7 @@ export default function Home() {
   return (
     <div className="home">
       <button onClick={() => setPage({mode: "trips"})}>get all the trips</button>
-      <button>sign up</button>
+      <button >sign up</button>
       <button>log in</button>
     </div>
   );

@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import { PageContext } from "../assets/contexts/pageContext";
 
 interface Props {
-  id: number;
+  id: number | string;
 }
 
 interface Trip {

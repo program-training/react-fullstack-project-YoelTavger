@@ -5,14 +5,12 @@ import PageContextProvider from "./assets/contexts/pageContext";
 import Router from "./Router";
 
 function App() {
-
   return (
     <>
       <div>
         <PageContextProvider>
           <Router />
         </PageContextProvider>
-
 
         {/* {flagHome ? (
           <Home flagTrips={setFlagTrips} flagHome={setFlagHome} />

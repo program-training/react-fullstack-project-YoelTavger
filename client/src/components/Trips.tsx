@@ -11,7 +11,7 @@ interface Trip {
   image: string;
 }
 
-export default function Trips(): JSX.Element {
+export default function Trips(): JSX.Element | null {
   const [trips, setTrips] = useState<Trip[]>([]);
 
   useEffect(() => {
@@ -38,22 +38,38 @@ export default function Trips(): JSX.Element {
   return (
     <div className="body">
       <button onClick={() => setPage({ mode: "home" })}>Home</button>
-      <button>Crete trip</button>
-      <div className="cardContain" >
+      <button onClick={() => setPage({ mode: "newTripForm" })}>
+        Crete trip
+      </button>
+      <div className="cardContain">
         {trips.map((user) => (
-          <div className="tripCard"  onClick={() => setPage({mode: "TripDetail" + user.id})}>
+          <div
+            className="tripCard"
+            onClick={() => setPage({ mode: "TripDetail" + user.id })}
+          >
             <h2 id="titleCard">{user.name}</h2>
             <p>{user.destination}</p>
             <p>{user.startDate}</p>
             <p>{user.endDate}</p>
-            <button
-              onClick={() => {
-                fetchDeleteTrip(user.id);
-              }}
-            >
-              delete
-            </button>
-            <img src={user.image} alt={user.name + " Image"} />
+            <div>
+              <button
+                onClick={(e) => {
+                  e.stopPropagation();
+                  fetchDeleteTrip(user.id);
+                }}
+              >
+                delete
+              </button>
+              <button
+                onClick={(e) => {e.stopPropagation();
+                  setPage({ mode: "UpdateTripForm" + user.id })}}
+              >
+                Update
+              </button>
+            </div>
+            <div>
+              <img src={user.image} alt={user.name + " Image"} />
+            </div>
           </div>
         ))}
       </div>

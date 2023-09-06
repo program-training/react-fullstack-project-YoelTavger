@@ -26,8 +26,6 @@ img {
     height: 225px;
     border-bottom-left-radius: 47px;
     border-bottom-right-radius: 47px;
-    position: relative;
-    bottom: 0;
 }
 #titleCard {
     padding: 10px 20%;
